@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leela Lakshmi Sai Ram Nakka — Salesforce Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#0A1628;
+    --navy-900:#0F1E38;
+    --navy-800:#152B4D;
+    --navy-700:#1C3763;
+    --cloud-50:#F7F9FC;
+    --sky-500:#00A1E0;
+    --sky-300:#5FC8F0;
+    --gold-400:#FFB81C;
+    --gold-300:#FFD37A;
+    --slate-300:#94A3B8;
+    --slate-400:#7688A0;
+    --slate-700:#334155;
+    --line: rgba(148,163,184,0.18);
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--navy-950);
+    color:var(--cloud-50);
+    font-family:var(--body);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  ::selection{ background:var(--sky-500); color:var(--navy-950); }
+
+  .wrap{ max-width:960px; margin:0 auto; padding:0 28px; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,22,40,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .brand{ font-family:var(--display); font-weight:700; letter-spacing:0.02em; font-size:1.05rem; }
+  .brand span{ color:var(--gold-400); }
+  .navlinks{ display:flex; gap:26px; font-size:0.88rem; color:var(--slate-300); }
+  .navlinks a:hover{ color:var(--sky-300); }
+  @media (max-width:640px){ .navlinks{ display:none; } }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    position:relative;
+    padding:96px 0 80px;
+    overflow:hidden;
+  }
+  header.hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 85% 8%, rgba(0,161,224,0.20), transparent 45%),
+      radial-gradient(circle at 10% 90%, rgba(255,184,28,0.10), transparent 40%);
+    pointer-events:none;
+  }
+  .hero-grid{
+    position:relative; z-index:1;
+    display:grid; grid-template-columns:1fr auto; gap:48px; align-items:center;
+  }
+  @media (max-width:700px){ .hero-grid{ grid-template-columns:1fr; text-align:center; } }
+
+  .eyebrow{
+    font-family:var(--mono); font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--gold-400); margin-bottom:16px; display:flex; gap:10px; align-items:center;
+  }
+  @media (max-width:700px){ .eyebrow{ justify-content:center; } }
+  .eyebrow::before{ content:""; width:22px; height:1px; background:var(--gold-400); display:inline-block; }
+
+  h1.name{
+    font-family:var(--display); font-weight:700; font-size:clamp(2.1rem,5vw,3.1rem);
+    line-height:1.08; letter-spacing:-0.01em;
+  }
+  .role{
+    margin-top:14px; font-size:1.15rem; color:var(--sky-300); font-family:var(--display); font-weight:500;
+  }
+  .objective{
+    margin-top:20px; max-width:56ch; color:var(--slate-300); font-size:0.98rem;
+  }
+  @media (max-width:700px){ .objective{ margin-inline:auto; } }
+
+  .contact-row{
+    margin-top:28px; display:flex; flex-wrap:wrap; gap:10px;
+  }
+  @media (max-width:700px){ .contact-row{ justify-content:center; } }
+  .pill{
+    font-family:var(--mono); font-size:0.78rem; padding:8px 14px; border-radius:999px;
+    border:1px solid var(--line); color:var(--slate-300);
+    transition:border-color .2s, color .2s, transform .2s;
+  }
+  .pill:hover{ border-color:var(--sky-500); color:var(--sky-300); transform:translateY(-2px); }
+
+  /* photo — replace src below with the user's own hosted photo URL */
+  .avatar-ring{
+    width:168px; height:168px; border-radius:50%;
+    background:conic-gradient(from 180deg, var(--gold-400), var(--sky-500), var(--gold-400));
+    display:flex; align-items:center; justify-content:center;
+    padding:5px; flex-shrink:0; justify-self:center;
+  }
+  .avatar-inner{
+    width:100%; height:100%; border-radius:50%; overflow:hidden;
+    background:var(--navy-800); display:flex; align-items:center; justify-content:center;
+  }
+  .avatar-inner img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:64px 0; border-top:1px solid var(--line); position:relative; }
+  .sec-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:36px; }
+  .sec-num{ font-family:var(--mono); color:var(--gold-400); font-size:0.85rem; }
+  h2{ font-family:var(--display); font-weight:600; font-size:1.55rem; }
+
+  /* ---------- ABOUT / STATS ---------- */
+  .stat-strip{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:8px; }
+  @media (max-width:700px){ .stat-strip{ grid-template-columns:repeat(2,1fr); } }
+  .stat{
+    border:1px solid var(--line); border-radius:14px; padding:18px 16px; background:var(--navy-900);
+  }
+  .stat b{ font-family:var(--mono); font-size:1.5rem; color:var(--gold-400); display:block; }
+  .stat span{ font-size:0.78rem; color:var(--slate-300); }
+
+  /* ---------- SKILLS ---------- */
+  .skill-groups{ display:grid; gap:18px; }
+  .skill-card{
+    border:1px solid var(--line); border-radius:14px; padding:20px 22px; background:var(--navy-900);
+  }
+  .skill-card h3{
+    font-family:var(--display); font-size:0.95rem; color:var(--sky-300); margin-bottom:10px; font-weight:600;
+  }
+  .tags{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    font-size:0.8rem; padding:6px 12px; border-radius:8px; background:var(--navy-800); color:var(--slate-300);
+    border:1px solid var(--line);
+  }
+
+  /* ---------- TRAIL (signature element) ---------- */
+  .trail{ position:relative; padding-left:52px; }
+  .trail::before{
+    content:""; position:absolute; left:19px; top:6px; bottom:6px; width:2px;
+    background:repeating-linear-gradient(to bottom, var(--gold-400) 0 6px, transparent 6px 12px);
+  }
+  .badge-node{ position:relative; padding-bottom:44px; }
+  .badge-node:last-child{ padding-bottom:0; }
+  .badge-icon{
+    position:absolute; left:-52px; top:0; width:40px; height:40px; border-radius:50%;
+    background:var(--navy-900); border:2px solid var(--gold-400);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-size:0.85rem; color:var(--gold-400); font-weight:700;
+    box-shadow:0 0 0 4px var(--navy-950);
+  }
+  .badge-node h3{ font-family:var(--display); font-size:1.05rem; font-weight:600; }
+  .badge-node .org{ color:var(--slate-400); font-size:0.82rem; margin-top:2px; }
+  .badge-node ul{ margin-top:10px; padding-left:18px; color:var(--slate-300); font-size:0.92rem; }
+  .badge-node li{ margin-bottom:6px; }
+  .badge-node li::marker{ color:var(--sky-500); }
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media (max-width:700px){ .proj-grid{ grid-template-columns:1fr; } }
+  .proj-card{
+    border:1px solid var(--line); border-radius:14px; padding:22px; background:var(--navy-900);
+    transition:border-color .2s, transform .2s;
+  }
+  .proj-card:hover{ border-color:var(--sky-500); transform:translateY(-3px); }
+  .proj-card h3{ font-family:var(--display); font-size:1.05rem; margin-bottom:8px; }
+  .proj-card .stack{ font-family:var(--mono); font-size:0.72rem; color:var(--gold-400); margin-bottom:10px; display:block; }
+  .proj-card p{ color:var(--slate-300); font-size:0.9rem; margin-bottom:6px; }
+
+  /* ---------- EDUCATION ---------- */
+  .edu-row{ display:flex; justify-content:space-between; gap:16px; padding:16px 0; border-bottom:1px solid var(--line); }
+  .edu-row:last-child{ border-bottom:none; }
+  .edu-left h3{ font-family:var(--display); font-size:1rem; font-weight:600; }
+  .edu-left span{ color:var(--slate-400); font-size:0.85rem; }
+  .edu-right{ text-align:right; font-family:var(--mono); font-size:0.85rem; color:var(--sky-300); white-space:nowrap; }
+  .edu-right small{ display:block; color:var(--slate-400); font-size:0.75rem; }
+
+  /* ---------- CERT / BADGE SHELF ---------- */
+  .cert-shelf{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  @media (max-width:700px){ .cert-shelf{ grid-template-columns:1fr; } }
+  .cert{
+    border:1px solid var(--line); border-radius:14px; padding:20px; text-align:center; background:var(--navy-900);
+  }
+  .cert .ring{
+    width:56px; height:56px; margin:0 auto 12px; border-radius:50%;
+    background:conic-gradient(var(--sky-500), var(--gold-400));
+    display:flex; align-items:center; justify-content:center; padding:3px;
+  }
+  .cert .ring::after{
+    content:"★"; width:100%; height:100%; border-radius:50%; background:var(--navy-900);
+    display:flex; align-items:center; justify-content:center; color:var(--gold-400); font-size:1.1rem;
+  }
+  .cert h3{ font-size:0.9rem; font-family:var(--display); font-weight:600; margin-bottom:4px; }
+  .cert p{ font-size:0.78rem; color:var(--slate-400); }
+
+  /* ---------- ACHIEVEMENTS ---------- */
+  .ach{ display:flex; gap:14px; align-items:flex-start; padding:14px 0; border-bottom:1px solid var(--line); }
+  .ach:last-child{ border-bottom:none; }
+  .ach .dot{ color:var(--gold-400); font-family:var(--mono); flex-shrink:0; }
+  .ach p{ color:var(--slate-300); font-size:0.94rem; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding:56px 0 64px; text-align:center; }
+  footer h2{ font-size:1.6rem; }
+  footer p{ color:var(--slate-300); margin-top:10px; }
+  .footer-links{ margin-top:26px; display:flex; justify-content:center; gap:14px; flex-wrap:wrap; }
+  .footer-links a{
+    font-family:var(--mono); font-size:0.82rem; padding:10px 18px; border-radius:999px;
+    border:1px solid var(--sky-500); color:var(--sky-300); transition:background .2s, color .2s;
+  }
+  .footer-links a:hover{ background:var(--sky-500); color:var(--navy-950); }
+  .fine{ margin-top:40px; color:var(--slate-400); font-size:0.78rem; }
+
+  /* reveal on scroll */
+  .reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ opacity:1; transform:none; transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">Leela Lakshmi <span>Sai Ram Nakka</span></div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#trail">Trail</a>
+      <a href="#projects">Projects</a>
+      <a href="#certs">Certifications</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Salesforce Certified Agentforce Specialist</div>
+      <h1 class="name">Leela Lakshmi<br>Sai Ram Nakka</h1>
+      <div class="role">Salesforce Developer</div>
+      <p class="objective">
+        Final-year B.Tech ECE student building on the Salesforce platform — Apex, LWC, and
+        declarative automation — with 220+ Trailhead badges, 100,000+ points, and two completed
+        Trailmixes. Eager to contribute as a project-ready Salesforce Developer.
+      </p>
+      <div class="contact-row">
+    <a class="pill" href="tel:+917981242049">Contact</a>
+
+    <a class="pill" href="mailto:nleelasairamnakka@gmail.com">Email</a>
+
+    <a class="pill"
+       href="https://www.linkedin.com/in/nakka-leela-lakshmi-sai-ram-05b659319?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+       target="_blank" rel="noopener noreferrer">
+        LinkedIn
+    </a>
+
+    <a class="pill"
+       href="https://github.com/sairam-900"
+       target="_blank" rel="noopener noreferrer">
+        GitHub
+    </a>
+
+    <a class="pill"
+       href="https://www.salesforce.com/trailblazer/dlivezj70a5il0ykye"
+       target="_blank" rel="noopener noreferrer">
+        Trailhead
+    </a>
+</div>
+
+    <!--
+      PHOTO SPOT
+      No image file was uploaded along with the resume, so this is a placeholder
+      avatar ring (initials "LN"). To use your own photo, either:
+        1) Replace the src below with a hosted image link, e.g.:
+           <img src="https://your-image-host.com/your-photo.jpg" alt="Leela Lakshmi Sai Ram Nakka">
+        2) Or place a local file named "photo.jpg" next to this index.html and set:
+           <img src="photo.jpg" alt="Leela Lakshmi Sai Ram Nakka">
+    -->
+    <div class="avatar-ring">
+      <div class="avatar-inner">
+        <!-- Add your profile image here - replace with your actual image URL -->
+    <img src="c:\Users\nleel\OneDrive\Pictures\rakta pinjari.jpg" alt="NAKKA LEELA LAKSHMI SAI RAM" class="profile-image">
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="about" class="reveal">
+    <div class="sec-head"><span class="sec-num">01</span><h2>About</h2></div>
+    <div class="stat-strip">
+      <div class="stat"><b>220+</b><span>Trailhead badges</span></div>
+      <div class="stat"><b>100k+</b><span>Trailhead points</span></div>
+      <div class="stat"><b>2</b><span>Trailmixes completed</span></div>
+      <div class="stat"><b>8.84</b><span>CGPA / 10</span></div>
+    </div>
+  </section>
+
+  <section id="skills" class="reveal">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Skills</h2></div>
+    <div class="skill-groups">
+      <div class="skill-card">
+        <h3>Salesforce Core Platform</h3>
+        <div class="tags">
+          <span class="tag">CRM Concepts</span><span class="tag">Data Model</span>
+          <span class="tag">Custom Objects</span><span class="tag">Record Types</span>
+          <span class="tag">Page Layouts</span><span class="tag">Lightning App Builder</span>
+          <span class="tag">Flows</span><span class="tag">Profiles &amp; Roles</span>
+          <span class="tag">Permission Sets</span><span class="tag">Sharing Rules</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Apex Development</h3>
+        <div class="tags">
+          <span class="tag">Apex Classes</span><span class="tag">Triggers</span>
+          <span class="tag">SOQL &amp; SOSL</span><span class="tag">Governor Limits</span>
+          <span class="tag">Future / Batch</span><span class="tag">Queueable</span>
+          <span class="tag">Schedulable</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Lightning Web Components</h3>
+        <div class="tags">
+          <span class="tag">Component Lifecycle</span><span class="tag">Data Binding</span>
+          <span class="tag">Lightning Data Service</span><span class="tag">Component Communication</span>
+          <span class="tag">HTML / CSS / JS</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>APIs, Integration &amp; Tooling</h3>
+        <div class="tags">
+          <span class="tag">REST APIs</span><span class="tag">Salesforce Connect</span>
+          <span class="tag">External Objects</span><span class="tag">Named Credentials</span>
+          <span class="tag">Git</span><span class="tag">Salesforce CLI (sf/sfdx)</span>
+          <span class="tag">Metadata API</span><span class="tag">Changesets</span>
+          <span class="tag">Scratch Orgs</span><span class="tag">VS Code</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="trail" class="reveal">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Hands-on Experience</h2></div>
+    <div class="trail">
+      <div class="badge-node">
+        <div class="badge-icon">01</div>
+        <h3>Salesforce Platform Developer Trailmix</h3>
+        <div class="org">Trailhead by Salesforce · Remote · 2026</div>
+        <ul>
+          <li>Completed hands-on modules on Apex classes, triggers, and SOQL/SOSL queries to build data-driven business logic.</li>
+          <li>Practiced LWC development, including component lifecycle, data binding, and parent-child event communication.</li>
+          <li>Built and deployed sample apps using Salesforce CLI, Scratch Orgs, and Developer Orgs to reinforce deployment workflows.</li>
+        </ul>
+      </div>
+      <div class="badge-node">
+        <div class="badge-icon">02</div>
+        <h3>Salesforce Platform Administrator Trailmix</h3>
+        <div class="org">Trailhead by Salesforce · Remote · 2026</div>
+        <ul>
+          <li>Configured Standard/Custom Objects, Record Types, Page Layouts, and Lightning App Builder to model business data.</li>
+          <li>Implemented Flows, Profiles, Roles, Permission Sets, and Sharing Rules to automate processes and secure data access.</li>
+          <li>Explored CRM fundamentals and declarative automation tools to support end-to-end org administration.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="reveal">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Projects</h2></div>
+    <div class="proj-grid">
+      <div class="proj-card">
+        <h3>Recruiting App Data Model</h3>
+        <span class="stack">Custom Objects · Schema Builder · Object Relationships</span>
+        <p>Designed custom objects, fields, and relationships while configuring Record Types and Page Layouts to support recruitment workflows.</p>
+        <p>Applied Salesforce data modeling best practices for a scalable, maintainable, business-oriented app.</p>
+      </div>
+      <div class="proj-card">
+        <h3>Discount Approval Process</h3>
+        <span class="stack">Flow · Approval Process · Validation Rules</span>
+        <p>Automated a multi-step discount approval workflow using Salesforce Flow, approval processes, and business rules.</p>
+        <p>Configured email alerts, validated automation, and tested in a Developer Org for reliable execution.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="education" class="reveal">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Education</h2></div>
+    <div class="edu-row">
+      <div class="edu-left"><h3>Vishnu Institute of Technology</h3><span>B.Tech — Electronics &amp; Communication Engineering</span></div>
+      <div class="edu-right">2023 – 2027<small>CGPA 8.84/10</small></div>
+    </div>
+    <div class="edu-row">
+      <div class="edu-left"><h3>SVKP PV Junior College</h3><span>Intermediate (MPC)</span></div>
+      <div class="edu-right">2021 – 2023<small>89.7%</small></div>
+    </div>
+    <div class="edu-row">
+      <div class="edu-left"><h3>SSVN High School</h3><span>10th (SSC)</span></div>
+      <div class="edu-right">2020 – 2021<small>98%</small></div>
+    </div>
+  </section>
+
+  <section id="certs" class="reveal">
+  <div class="sec-head">
+    <span class="sec-num">06</span>
+    <h2>Certifications</h2>
+  </div>
+
+  <div class="cert-shelf">
+
+    <div class="cert">
+      <div class="ring"></div>
+      <h3>Salesforce Certified Agentforce Specialist</h3>
+      <p>Salesforce</p>
+      <a href="https://drive.google.com/file/d/1UEO8x4y9ft1B1p7RiXK10cApYcKCWgr1/view?usp=drivesdk" target="_blank" class="cert-link">
+        View Certificate
+      </a>
+    </div>
+
+    <div class="cert">
+      <div class="ring"></div>
+      <h3>IoT, Java &amp; Cloud Computing</h3>
+      <p>NPTEL</p>
+      <a href="https://drive.google.com/file/d/1eLIZD_xd63r6Q3NdvVqRk-TiXSyGcGd2/view?usp=drivesdk" target="_blank" class="cert-link">
+        View Certificate
+      </a>
+    </div>
+
+    <div class="cert">
+      <div class="ring"></div>
+      <h3>Geodata Processing with Python &amp; ML</h3>
+      <p>ISRO</p>
+      <a href="" target="_blank" class="cert-link">
+        View Certificate
+      </a>
+    </div>
+
+  </div>
+</section>
+
+  <section id="achievements" class="reveal">
+    <div class="sec-head"><span class="sec-num">07</span><h2>Achievements</h2></div>
+    <div class="ach"><span class="dot">›</span><p>Secured 1st place in a Generative AI Hackathon for developing an AI-based solution.</p></div>
+    <div class="ach"><span class="dot">›</span><p>Earned the Salesforce Double Star Ranger rank — 220+ badges and 100,000+ Trailhead points.</p></div>
+  </section>
+
+</main>
+
+<footer id="contact" class="reveal">
+  <div class="wrap">
+    <h2>Let's build on the platform together.</h2>
+    <p>Open to Salesforce Developer roles, internships, and collaborations.</p>
+    <div class="footer-links">
+      <a href="mailto:nleelasairamnakka@gmail.com">Email</a>
+      <a href="tel:+917981242049">Call</a>
+      <a href="#" data-link="linkedin">LinkedIn</a>
+      <a href="#" data-link="github">GitHub</a>
+      <a href="#" data-link="trailhead">Trailhead</a>
+    </div>
+    <div class="fine">© 2026 Leela Lakshmi Sai Ram Nakka. Built on Trailhead.</div>
+  </div>
+</footer>
+
+<script>
+  // Fill these in with your real profile URLs.
+  const links = {
+    linkedin: "https://www.linkedin.com/in/nakka-leela-lakshmi-sai-ram-05b659319?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    github: "https://github.com/sairam-900",
+    trailhead: "https://www.salesforce.com/trailblazer/dlivezj70a5il0ykye"
+  };
+  document.querySelectorAll('[data-link]').forEach(el=>{
+    const key = el.getAttribute('data-link');
+    if(links[key]) el.setAttribute('href', links[key]);
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); } });
+  }, { threshold:0.12 });
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+
+</body>
+</html>
